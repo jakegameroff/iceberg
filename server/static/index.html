@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>iceberg.sh</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%2016%2016%22%3E%3Cpath%20d%3D%22M8%201%20L11%207%20L5%207%20Z%22%20fill%3D%22%23f4fbff%22/%3E%3Cpath%20d%3D%22M8%201%20L11%207%20L8%207%20Z%22%20fill%3D%22%23d4ecf8%22/%3E%3Cpath%20d%3D%22M5%207%20L11%207%20L13.5%2010.5%20L9%2015%20L4%2013%20L2.5%209.5%20Z%22%20fill%3D%22%233f88b5%22/%3E%3Cpath%20d%3D%22M8%207%20L11%207%20L13.5%2010.5%20L9%2015%20Z%22%20fill%3D%22%232f6e96%22/%3E%3C/svg%3E">
+<style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+        --sky-top: #dff1fb;
+        --sky-bot: #bfe3f5;
+        --sea-top: #1f6f9e;
+        --sea-bot: #0a2e47;
+        --ink: #0a2233;
+        --foam: #f4fbff;
+        --code-bg: #0a2e47;
+        --code-fg: #cfe6f7;
+        --accent: #7fd2f0;
+    }
+    html { font-size: 17px; }
+    body {
+        font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        color: var(--ink);
+        line-height: 1.6;
+        background: var(--sea-bot);
+    }
+
+    /* ---- above the waterline ---- */
+    .sky {
+        background: linear-gradient(180deg, var(--sky-top), var(--sky-bot));
+        padding: 72px 24px 0;
+        position: relative;
+        overflow: hidden;
+        text-align: center;
+    }
+    .wordmark {
+        font-size: clamp(2.6rem, 9vw, 4.4rem);
+        font-weight: 800;
+        letter-spacing: -0.04em;
+        color: var(--ink);
+    }
+    .wordmark .sh { color: var(--sea-top); }
+    .tagline {
+        max-width: 30ch;
+        margin: 14px auto 0;
+        font-size: clamp(1rem, 3.4vw, 1.25rem);
+        color: #2a5573;
+        font-weight: 500;
+    }
+    .tagline b { color: var(--ink); }
+
+    /* the berg straddles the fold */
+    .berg {
+        display: block;
+        width: clamp(150px, 42vw, 230px);
+        margin: 34px auto 14px;
+        filter: drop-shadow(0 10px 22px rgba(10,46,71,.25));
+    }
+
+    /* ---- below the waterline ---- */
+    .sea {
+        background: linear-gradient(180deg, var(--sea-top), var(--sea-bot));
+        color: var(--foam);
+        padding: 8px 24px 90px;
+    }
+    .panel { max-width: 540px; margin: 0 auto; }
+
+    .step { margin-top: 40px; }
+    .step h2 {
+        font-size: 0.74rem;
+        text-transform: uppercase;
+        letter-spacing: 0.16em;
+        font-weight: 700;
+        color: var(--accent);
+        margin-bottom: 10px;
+    }
+    pre {
+        position: relative;
+        background: var(--code-bg);
+        border: 1px solid rgba(127,210,240,.22);
+        border-radius: 12px;
+        padding: 16px 18px;
+        overflow-x: auto;
+        font: 0.92rem/1.6 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+        color: var(--code-fg);
+        box-shadow: 0 14px 40px -18px rgba(0,0,0,.6);
+    }
+    .cm { color: #6f9bb5; }
+    .v { color: var(--accent); }
+    .s { color: #ffd9a3; }
+    .copy {
+        position: absolute; top: 8px; right: 8px;
+        background: rgba(127,210,240,.12); color: var(--code-fg);
+        border: 1px solid rgba(127,210,240,.28); border-radius: 7px;
+        font: 0.72rem ui-monospace, monospace; padding: 3px 9px; cursor: pointer;
+        opacity: .55; transition: opacity .15s, background .15s;
+    }
+    pre:hover .copy, .copy:hover { opacity: 1; }
+    .copy:hover { background: rgba(127,210,240,.25); }
+    @media (max-width: 600px) { .copy { display: none; } }
+
+    .docs {
+        display: inline-block;
+        color: var(--accent);
+        font-size: 0.92rem;
+        font-weight: 600;
+        cursor: not-allowed;
+    }
+    .docs .soon { font-weight: 400; opacity: 0.6; }
+
+    .rules {
+        margin-top: 46px;
+        font-size: 0.95rem;
+        color: #cfe6f3;
+    }
+    .rules p { margin-bottom: 12px; }
+    .rules strong { color: #fff; }
+    .warn {
+        border-left: 3px solid var(--accent);
+        padding: 10px 0 10px 16px;
+        color: #bcd9e8;
+    }
+    footer {
+        max-width: 540px;
+        margin: 56px auto 0;
+        padding-top: 18px;
+        border-top: 1px solid rgba(127,210,240,.18);
+        font-size: 0.82rem;
+        color: #7ba6bf;
+        display: flex;
+        justify-content: space-between;
+    }
+    footer a { color: #9fc8dd; text-decoration: none; }
+    footer a:hover { color: #fff; }
+</style>
+</head>
+<body>
+    <section class="sky">
+        <h1 class="wordmark">iceberg<span class="sh">.sh</span></h1>
+        <p class="tagline">The copy-paste bridge between machines. Pipe <b>any bytes</b> &mdash; text, PDFs, images, videos, zips, tars &mdash; to a topic and grab them anywhere. No auth, no keys, no setup.</p>
+
+        <svg class="berg" viewBox="0 0 220 240" aria-hidden="true">
+            <!-- tip, above water -->
+            <path d="M110 14 L150 96 L70 96 Z" fill="#f4fbff"/>
+            <path d="M110 14 L150 96 L110 96 Z" fill="#d4ecf8"/>
+            <!-- submerged mass -->
+            <path d="M70 96 L150 96 L172 150 L150 210 L96 232 L52 196 L40 140 Z" fill="#3f88b5" opacity="0.92"/>
+            <path d="M110 96 L150 96 L172 150 L150 210 L96 232 Z" fill="#2f6e96" opacity="0.92"/>
+            <!-- waterline -->
+            <line x1="0" y1="96" x2="220" y2="96" stroke="#eaf6ff" stroke-width="2" stroke-dasharray="5 6" opacity="0.7"/>
+        </svg>
+    </section>
+
+    <section class="sea">
+        <div class="panel">
+            <div class="step">
+                <h2>Install</h2>
+                <pre id="install-cmd">curl -fsSL https://iceberg.sh/install.sh | sh</pre>
+            </div>
+
+            <div class="step">
+                <h2>Send &amp; receive</h2>
+                <pre><span class="cm"># on one machine — pipe anything in</span>
+echo <span class="s">"hi from my laptop"</span> | iceberg push <span class="v">my-topic</span>
+
+<span class="cm"># on any other machine</span>
+iceberg pull <span class="v">my-topic</span></pre>
+            </div>
+
+            <div class="step">
+                <h2>Send a file &mdash; any bytes</h2>
+                <pre><span class="cm"># pdf, image, video, zip, tar — just redirect it in</span>
+iceberg push -t <span class="v">report</span> &lt; report.pdf
+iceberg pull <span class="v">report</span> &gt; report.pdf</pre>
+            </div>
+
+            <div class="step">
+                <h2>View it in the browser</h2>
+                <pre><span class="cm"># renders text, images &amp; SVG — otherwise downloads</span>
+iceberg.sh/v/<span class="v">my-topic</span></pre>
+            </div>
+
+            <div class="step">
+                <h2>Set a default topic</h2>
+                <pre><span class="cm"># save it once, then drop the name</span>
+iceberg topic <span class="v">my-topic</span>
+echo <span class="s">"hi"</span> | iceberg push
+iceberg pull</pre>
+            </div>
+
+            <div class="step">
+                <h2>No CLI? curl works too</h2>
+                <pre>curl -d <span class="s">"hi"</span> iceberg.sh/<span class="v">my-topic</span>
+curl iceberg.sh/<span class="v">my-topic</span></pre>
+            </div>
+
+            <div class="step">
+                <span class="docs">Read the docs &rarr; <span class="soon">(coming soon)</span></span>
+            </div>
+
+            <footer>
+                <span>iceberg.sh</span>
+                <span>open source on GitHub (coming soon)</span>
+            </footer>
+        </div>
+    </section>
+<script>
+    var pre = document.getElementById('install-cmd');
+    if (pre) {
+        var text = pre.innerText;
+        var btn = document.createElement('button');
+        btn.className = 'copy';
+        btn.type = 'button';
+        btn.textContent = 'copy';
+        btn.addEventListener('click', function () {
+            navigator.clipboard.writeText(text.trim());
+            btn.textContent = 'copied';
+            setTimeout(function () { btn.textContent = 'copy'; }, 1200);
+        });
+        pre.appendChild(btn);
+    }
+</script>
+</body>
+</html>

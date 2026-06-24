@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 240" width="220" height="240">
+  <!-- tip, above water -->
+  <path d="M110 14 L150 96 L70 96 Z" fill="#f4fbff"/>
+  <path d="M110 14 L150 96 L110 96 Z" fill="#d4ecf8"/>
+  <!-- submerged mass -->
+  <path d="M70 96 L150 96 L172 150 L150 210 L96 232 L52 196 L40 140 Z" fill="#3f88b5" opacity="0.92"/>
+  <path d="M110 96 L150 96 L172 150 L150 210 L96 232 Z" fill="#2f6e96" opacity="0.92"/>
+  <!-- waterline -->
+  <line x1="0" y1="96" x2="220" y2="96" stroke="#eaf6ff" stroke-width="2" stroke-dasharray="5 6" opacity="0.7"/>
+</svg>

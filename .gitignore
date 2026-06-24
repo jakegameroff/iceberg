@@ -1,0 +1,16 @@
+# compiled binaries
+/server/iceberg.sh
+/cli/iceberg
+/server/dist/dl/
+
+# local data
+*.db
+*.db-wal
+*.db-shm
+
+# wrangler / node
+.wrangler/
+node_modules/
+
+# os
+.DS_Store

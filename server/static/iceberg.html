@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>iceberg · view</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%2016%2016%22%3E%3Cpath%20d%3D%22M8%201%20L11%207%20L5%207%20Z%22%20fill%3D%22%23f4fbff%22/%3E%3Cpath%20d%3D%22M5%207%20L11%207%20L13.5%2010.5%20L9%2015%20L4%2013%20L2.5%209.5%20Z%22%20fill%3D%22%233f88b5%22/%3E%3Cpath%20d%3D%22M8%207%20L11%207%20L13.5%2010.5%20L9%2015%20Z%22%20fill%3D%22%232f6e96%22/%3E%3C/svg%3E">
+<style>
+    body { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; margin: 14px; color: #111; }
+    header {
+        display: grid;
+        grid-template-columns: 1fr auto;
+        gap: 12px;
+        align-items: center;
+        margin-bottom: 10px;
+    }
+    .right { display: flex; gap: 14px; align-items: center; }
+    .brand { cursor: pointer; }
+    .topic { color: #1f6f9e; }
+    .status { color: #888; font-size: 0.85em; }
+    button { font: inherit; font-size: 0.85em; padding: 2px 10px; cursor: pointer; }
+    .qr-wrap { position: relative; display: inline-flex; align-items: center; }
+    .qr-icon { width: 18px; height: 18px; cursor: pointer; opacity: 0.55; color: #1f6f9e; }
+    .qr-icon:hover { opacity: 1; }
+    .qr-pop { position: absolute; top: 100%; right: 0; margin-top: 6px; background: #fff; border: 1px solid #bbb; border-radius: 6px; padding: 8px; z-index: 10; line-height: 0; }
+    #box {
+        overflow: auto;
+    }
+    #box.text { white-space: pre-wrap; word-break: break-word; }
+    #box img, #box video { max-width: 100%; max-height: calc(100vh - 110px); display: block; margin: 0 auto; }
+    #box embed { width: 100%; height: calc(100vh - 100px); border: 0; }
+    .muted { color: #999; }
+
+    /* rendered markdown */
+    .md { line-height: 1.6; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+    .md h1, .md h2, .md h3, .md h4 { margin: 0.7em 0 0.3em; line-height: 1.25; }
+    .md p { margin: 0.5em 0; }
+    .md ul, .md ol { padding-left: 1.5em; margin: 0.5em 0; }
+    .md a { color: #1f6f9e; }
+    .md code { background: rgba(0,0,0,0.06); padding: 1px 5px; border-radius: 4px; font-family: ui-monospace, monospace; font-size: 0.9em; }
+    .md pre { background: rgba(0,0,0,0.06); padding: 12px; border-radius: 8px; overflow: auto; }
+    .md pre code { background: none; padding: 0; }
+    .md blockquote { border-left: 3px solid #ccc; margin: 0.6em 0; padding-left: 1em; color: #666; }
+    .md img { max-width: 100%; }
+    .md table { border-collapse: collapse; margin: 0.6em 0; }
+    .md th, .md td { border: 1px solid #ccc; padding: 4px 9px; }
+    .md hr { border: none; border-top: 1px solid #ddd; margin: 1em 0; }
+</style>
+</head>
+<body>
+    <header>
+        <span class="brand" id="brand" title="copy link">iceberg.sh</span>
+        <span class="right">
+            <span class="status" id="status"></span>
+            <span class="qr-wrap">
+                <svg class="qr-icon" id="qr-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-label="QR code" title="QR code for this page">
+                    <path d="M9 6.6V8.4C9 8.73137 8.73137 9 8.4 9H6.6C6.26863 9 6 8.73137 6 8.4V6.6C6 6.26863 6.26863 6 6.6 6H8.4C8.73137 6 9 6.26863 9 6.6Z"/>
+                    <path d="M6 12H9"/>
+                    <path d="M15 12V15"/>
+                    <path d="M12 18H15"/>
+                    <path d="M12 12.0111L12.01 12"/>
+                    <path d="M18 12.0111L18.01 12"/>
+                    <path d="M12 15.0111L12.01 15"/>
+                    <path d="M18 15.0111L18.01 15"/>
+                    <path d="M18 18.0111L18.01 18"/>
+                    <path d="M12 9.01111L12.01 9"/>
+                    <path d="M12 6.01111L12.01 6"/>
+                    <path d="M9 15.6V17.4C9 17.7314 8.73137 18 8.4 18H6.6C6.26863 18 6 17.7314 6 17.4V15.6C6 15.2686 6.26863 15 6.6 15H8.4C8.73137 15 9 15.2686 9 15.6Z"/>
+                    <path d="M18 6.6V8.4C18 8.73137 17.7314 9 17.4 9H15.6C15.2686 9 15 8.73137 15 8.4V6.6C15 6.26863 15.2686 6 15.6 6H17.4C17.7314 6 18 6.26863 18 6.6Z"/>
+                    <path d="M18 3H21V6"/>
+                    <path d="M18 21H21V18"/>
+                    <path d="M6 3H3V6"/>
+                    <path d="M6 21H3V18"/>
+                </svg>
+                <div class="qr-pop" id="qr" hidden></div>
+            </span>
+            <button id="download" hidden>download</button>
+        </span>
+    </header>
+    <div id="box" class="text"><span class="muted">…</span></div>
+
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/dompurify/dist/purify.min.js"></script>
+<script>
+    var topic = decodeURIComponent(location.pathname.replace(/^\/v\//, "").replace(/\/$/, ""));
+    var box = document.getElementById("box");
+    var status = document.getElementById("status");
+    var brand = document.getElementById("brand");
+    var dl = document.getElementById("download");
+
+    brand.innerHTML = topic ? 'iceberg.sh<span class="topic">/' + topic + '</span>' : 'iceberg.sh';
+    brand.onclick = function () { navigator.clipboard.writeText(location.href); };
+
+    // QR code of this page's URL (scan to open the topic on another device)
+    var qrIcon = document.getElementById("qr-icon");
+    var qrPop = document.getElementById("qr");
+    qrIcon.addEventListener("click", function (e) {
+        e.stopPropagation();
+        if (qrPop.hidden) {
+            qrPop.innerHTML = '<img width="150" height="150" alt="QR" src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=' + encodeURIComponent(location.href) + '">';
+            qrPop.hidden = false;
+        } else {
+            qrPop.hidden = true;
+        }
+    });
+    document.addEventListener("click", function () { if (!qrPop.hidden) qrPop.hidden = true; });
+
+    function show(el) { box.className = ""; box.innerHTML = ""; box.appendChild(el); }
+    function showHTML(cls, h) { box.className = cls; box.innerHTML = h; }
+
+    async function load() {
+        if (!topic) { showHTML("", '<span class="muted">no topic — try /v/your-topic</span>'); return; }
+        var res;
+        try { res = await fetch("/" + encodeURIComponent(topic), { cache: "no-store" }); }
+        catch (e) { status.textContent = "error"; showHTML("", '<span class="muted">' + e.message + '</span>'); return; }
+
+        if (res.status === 404) { status.textContent = "empty"; showHTML("", '<span class="muted">— topic is empty —</span>'); return; }
+        if (!res.ok) { status.textContent = res.status; showHTML("", '<span class="muted">error ' + res.status + '</span>'); return; }
+
+        var blob = await res.blob();
+        var ct = (res.headers.get("content-type") || "").toLowerCase();
+        status.textContent = blob.size + " bytes";
+
+        dl.hidden = false;
+        dl.onclick = function () {
+            var a = document.createElement("a");
+            a.href = URL.createObjectURL(blob);
+            a.download = topic;
+            a.click();
+        };
+
+        var text = await blob.text();
+        var isSvg = text.trimStart().slice(0, 200).toLowerCase().indexOf("<svg") !== -1;
+
+        if (ct.indexOf("image/") === 0 || isSvg) {
+            var imgBlob = isSvg ? new Blob([text], { type: "image/svg+xml" }) : blob;
+            var img = new Image();
+            img.src = URL.createObjectURL(imgBlob);
+            show(img);
+        } else if (ct.indexOf("video/") === 0) {
+            var v = document.createElement("video");
+            v.controls = true;
+            v.src = URL.createObjectURL(blob);
+            show(v);
+        } else if (ct.indexOf("application/pdf") === 0) {
+            var e = document.createElement("embed");
+            e.type = "application/pdf";
+            e.src = URL.createObjectURL(blob);
+            show(e);
+        } else if (isTextual(ct, text)) {
+            // /v/ is for viewing — always render as markdown (sanitized)
+            showHTML("", '<div class="md">' + DOMPurify.sanitize(marked.parse(text)) + '</div>');
+        } else {
+            showHTML("", '<span class="muted">binary data — use download</span>');
+        }
+    }
+
+    function isTextual(ct, sample) {
+        if (/^(text\/|application\/(json|xml|javascript|x-sh))/.test(ct)) return true;
+        return sample.slice(0, 4000).indexOf(" ") === -1; // no NUL → treat as text
+    }
+
+    load();
+</script>
+</body>
+</html>
