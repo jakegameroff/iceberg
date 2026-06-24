@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="iceberg.svg" alt="iceberg" width="110">
+</p>
+
 # iceberg.sh
 
 The copy-paste bridge between machines. Pipe **any bytes** — text, code, PDFs, images, SVGs, video — to a topic and grab them anywhere. No auth, no keys, no setup.
