@@ -7,8 +7,11 @@
 The copy-paste bridge between machines. Pipe **any bytes** — text, code, PDFs, images, SVGs, video — to a topic and grab them anywhere. No auth, no keys, no setup.
 
 ```sh
-echo "hi from my laptop" | iceberg push notes   # one machine
-iceberg pull notes                              # any other machine
+cat README.md | iceberg push notes      # one machine
+iceberg pull notes                      # any other machine
+
+iceberg push < video.mp4                # send any bytes
+iceberg pull > video.mp4                # any other machine
 ```
 
 ## Install
@@ -20,8 +23,8 @@ curl -fsSL https://iceberg.sh/install.sh | sh
 Or just use `curl` — there's nothing to install:
 
 ```sh
-curl -d "hi" iceberg.sh/notes     # write
-curl iceberg.sh/notes             # read
+curl -d "🧊🏔️" iceberg.sh/iceberg     # write
+curl iceberg.sh/iceberg               # read
 ```
 
 ## CLI
