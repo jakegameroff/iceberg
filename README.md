@@ -20,6 +20,12 @@ iceberg pull > video.mp4                # any other machine
 curl -fsSL https://iceberg.sh/install.sh | sh
 ```
 
+Go users can build from source:
+
+```sh
+go install github.com/jakegameroff/iceberg/cmd/iceberg@latest
+```
+
 Or just use `curl` — there's nothing to install:
 
 ```sh

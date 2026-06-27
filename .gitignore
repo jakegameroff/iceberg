@@ -1,6 +1,8 @@
 # compiled binaries
+/iceberg
+/cmd/iceberg/iceberg
+/server/server
 /server/iceberg.sh
-/cli/iceberg
 /server/dist/dl/
 
 # local data

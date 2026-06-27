@@ -1,4 +1,4 @@
-module iceberg.sh
+module github.com/jakegameroff/iceberg
 
 go 1.25.0
 
