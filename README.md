@@ -14,7 +14,7 @@ iceberg push < video.mp4                # send any bytes
 iceberg pull > video.mp4                # any other machine
 ```
 
-## Install
+## Install CLI
 
 ```sh
 curl -fsSL https://iceberg.sh/install.sh | sh
