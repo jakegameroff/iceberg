@@ -4,7 +4,7 @@
 
 # iceberg.sh
 
-The copy-paste bridge between machines. Pipe **any bytes** — text, code, PDFs, images, SVGs, video — to a topic and grab them anywhere. No auth, no keys, no setup.
+Pipe any bytes — text, PDFs, images, videos, zips — to a topic and grab them anywhere.
 
 ```sh
 cat README.md | iceberg push notes      # one machine
